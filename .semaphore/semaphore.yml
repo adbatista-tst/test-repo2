@@ -32,10 +32,8 @@ blocks:
           commands:
             - 'docker run --net=host --rm -d --name mysql --tmpfs /var/lib/mysql:rw,size=2g,mode=1777 -v /var/run/mysqld:/var/run/mysqld -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=test registry.semaphoreci.com/mysql:8 --innodb-flush-log-at-trx-commit=0 --innodb-doublewrite=0 --skip-log-bin --performance-schema=OFF'
             - sem-dockerize 3306 mysql
-        - name: echo Semaphore Envs
-          commands:
-            - echo $SEMAPHORE_PR_SHA
-            - echo $BASH_ENV
-            - 'echo $SEMAPHORE_GIT_COMMIT_AUTHOR '
       secrets:
         - name: test overwrite secrets
+      env_vars:
+        - name: SEMAPHORE_GIT_COMMIT_AUTHOR
+          value: BAR_1
