@@ -23,7 +23,7 @@ blocks:
             - echo "Checking out code..."
             - echo "Installing dependencies..."
             - echo "Running test suite..."
-            - echo "Tests completed successfully! =====--==="
+            - echo "Tests completed successfully! =====---==="
         - name: mysql sem-version
           commands:
             - sem-service start mysql 8
