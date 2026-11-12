@@ -16,3 +16,5 @@ blocks:
             - echo "SEMAPHORE_GIT_PR_SHA=$SEMAPHORE_GIT_PR_SHA"
             - checkout
             - git log --oneline -3 --format='%H %P %s'
+      secrets:
+        - name: 'aws Cache '
