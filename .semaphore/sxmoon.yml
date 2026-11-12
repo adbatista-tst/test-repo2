@@ -1,0 +1,18 @@
+version: v1.0
+name: sxmoon stale merge check
+agent:
+  machine:
+    type: f1-standard-2
+    os_image: ubuntu2404
+blocks:
+  - name: Report checked out commit
+    dependencies: []
+    task:
+      jobs:
+        - name: Show SHAs
+          commands:
+            - echo "SEMAPHORE_GIT_SHA=$SEMAPHORE_GIT_SHA"
+            - echo "SEMAPHORE_GIT_REF=$SEMAPHORE_GIT_REF"
+            - echo "SEMAPHORE_GIT_PR_SHA=$SEMAPHORE_GIT_PR_SHA"
+            - checkout
+            - git log --oneline -3 --format='%H %P %s'
