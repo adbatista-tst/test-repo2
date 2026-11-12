@@ -1,3 +1,4 @@
 stale merge test 1
 stale merge test 2
 stale merge test 3
+stale merge test 4
