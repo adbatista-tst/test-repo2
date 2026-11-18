@@ -1,18 +1,51 @@
 version: v1.0
-name: sxmoon stale merge check
+name: waiting scan test
 agent:
   machine:
     type: f1-standard-2
     os_image: ubuntu2404
 blocks:
-  - name: Report checked out commit
+  - name: A
     dependencies: []
     task:
       jobs:
-        - name: Show SHAs
+        - name: a
           commands:
-            - echo "SEMAPHORE_GIT_SHA=$SEMAPHORE_GIT_SHA"
-            - echo "SEMAPHORE_GIT_REF=$SEMAPHORE_GIT_REF"
-            - echo "SEMAPHORE_GIT_PR_SHA=$SEMAPHORE_GIT_PR_SHA"
-            - checkout
-            - git log --oneline -3 --format='%H %P %s'
+            - sleep 20
+  - name: B
+    dependencies: []
+    task:
+      jobs:
+        - name: b
+          commands:
+            - sleep 40
+  - name: C (after A)
+    dependencies: ["A"]
+    task:
+      jobs:
+        - name: c
+          commands:
+            - sleep 60
+  - name: D (after A and B)
+    dependencies: ["A", "B"]
+    task:
+      jobs:
+        - name: d
+          commands:
+            - sleep 10
+  - name: E (skipped)
+    dependencies: ["D (after A and B)"]
+    skip:
+      when: "true"
+    task:
+      jobs:
+        - name: e
+          commands:
+            - echo skipped
+  - name: F (after E)
+    dependencies: ["E (skipped)"]
+    task:
+      jobs:
+        - name: f
+          commands:
+            - echo done
