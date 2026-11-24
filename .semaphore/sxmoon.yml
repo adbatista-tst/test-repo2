@@ -12,7 +12,6 @@ blocks:
         - name: a
           commands:
             - sleep 20
-            - exit 1
   - name: B
     dependencies: []
     task:
